@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
  
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 DESCRIPTION = "Base 69 encoder and decoder"
 
 setup(
@@ -8,7 +8,7 @@ setup(
     version=VERSION,
     author='Michael Parker',
     author_email='michaelrbparker@protonmail.com',
-    url='https://github.com/micfun123/twos-complement',
+    url='https://github.com/micfun123/Base69',
     description=DESCRIPTION,
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
