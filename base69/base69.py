@@ -12,8 +12,9 @@ CONVERSION_TABLE = dict(zip(range(len(values)), values))
 
 
 class InvalidInput(Exception):
-    def __init__(self, *args: object) -> None:
-        super().__init__(*args)
+    def __init__(self, message: str) -> None:
+        message = f"Invalid input was provided! ({message})"
+        super().__init__(message)
 
 
 def encode_base69(input: int) -> str:
@@ -31,9 +32,7 @@ def encode_base69(input: int) -> str:
     """
 
     if not type(input) == int:
-        raise InvalidInput(
-            "Input must be an integer as we only support integers for now"
-        )
+        raise InvalidInput("Must be of type: int")
 
     base69 = ""
     while input > 0:
@@ -65,7 +64,11 @@ def decode_base69(input: str) -> int:
 
     base = 0
     for i in range(len(input)):
-        base += list(CONVERSION_TABLE.keys())[
-            list(CONVERSION_TABLE.values()).index(input[i])
-        ] * (70 ** (len(input) - i - 1))
+        try:
+            base += list(CONVERSION_TABLE.keys())[
+                list(CONVERSION_TABLE.values()).index(input[i])
+            ] * (70 ** (len(input) - i - 1))
+        except ValueError as ve:
+            invalid_char = ve.args[0].split(" ")[0]
+            raise InvalidInput(f"{invalid_char} is not allowed")
     return base
